@@ -1,9 +1,9 @@
 // Creo Array de cryptos
-const tokens= [];
+const tokens = [];
 
 // Creo la clase constructora de Cryptos
-class crypto{
-    constructor(name,ticker,price,change,lastDay){
+class crypto {
+    constructor(name, ticker, price, change, lastDay) {
         this.name = name;
         this.ticker = ticker;
         this.price = price;
@@ -13,12 +13,12 @@ class crypto{
 }
 
 // Creo instancias y las meto al array
-let btc = new crypto("Bitcoin","BTC","18.674",0.018,2)
-let eth = new crypto("Ethereum","ETH","1.260",0.058,2)
-let bnb = new crypto("BNB","BNB","274",0.008,2)
-let xrp = new crypto("XRP","XRP","0,486",0.024,1)
-let ada = new crypto("Cardano","ADA","0,44",0.022,2)
-let sol = new crypto("Solana","SOL","32,2",0.024,2)
+let btc = new crypto("Bitcoin", "BTC", "18.674", 0.018, 2)
+let eth = new crypto("Ethereum", "ETH", "1.260", 0.058, 2)
+let bnb = new crypto("BNB", "BNB", "274", 0.008, 2)
+let xrp = new crypto("XRP", "XRP", "0,486", 0.024, 1)
+let ada = new crypto("Cardano", "ADA", "0,44", 0.022, 2)
+let sol = new crypto("Solana", "SOL", "32,2", 0.024, 2)
 
 tokens.push(btc);
 tokens.push(eth);
@@ -27,11 +27,13 @@ tokens.push(xrp);
 tokens.push(ada);
 tokens.push(sol);
 
-const DOMmonedas = document.getElementById("monedas");
+const domMonedas = document.getElementById("monedas");
+const domBoton = document.getElementById("boton");
+domBoton.addEventListener("click", renderizarTokens)
 
 // Renderizar las cotizaciones en tarjetas
 function renderizarTokens() {
-    tokens.forEach( item => {
+    tokens.forEach(item => {
         // Columna Bootstrap
         const nodoColumna = document.createElement("div");
         nodoColumna.classList.add("col");
@@ -52,7 +54,7 @@ function renderizarTokens() {
         nodoCardText.classList.add("list-unstyled", "mt-3", "mb-4");
         nodoCardText.innerHTML = `<li>${item.name}</li>`
         // Cambio el color segun variacion de la cotizacion
-        switch(item.lastDay) {
+        switch (item.lastDay) {
             case 1:
                 nodoCard.classList.add("border-success");
                 nodoCardTitle.classList.add("bg-success", "border-success");
@@ -73,10 +75,13 @@ function renderizarTokens() {
         nodoCardBody.append(nodoCardPrice, nodoCardText)
         nodoCard.append(nodoCardTitle, nodoCardBody);
         nodoColumna.append(nodoCard);
-        DOMmonedas.append(nodoColumna);
+        domMonedas.append(nodoColumna);
     })
 }
-renderizarTokens()
+
+
+/* COMENTADO PARA REUTILIZAR PARTES
+
 
 // Ingreso del usuario y filtrado
 let input = prompt("Indique la cryptomoneda para conocer su cotización:").toUpperCase();
@@ -104,8 +109,10 @@ if (typeof output !== "undefined") {
     showToken = "No existe cotización"
     alert(showToken);
 }
+ */
 
-// Funcion del botón web, resumen de cotizaciones
+
+/* // Funcion anterior del botón web, resumen de cotizaciones
 function cotizaciones () {
     const winners = tokens.filter(crypto => crypto.lastDay === 1);
     let showWinners = `Cryptos Ganadoras del día: \n`;
@@ -125,4 +132,4 @@ function cotizaciones () {
     
     console.log(tokens);
 }
-
+ */
