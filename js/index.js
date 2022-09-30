@@ -13,12 +13,12 @@ class crypto {
 }
 
 // Creo instancias y las meto al array
-let btc = new crypto("Bitcoin", "BTC", "18.674", 0.018, 2)
-let eth = new crypto("Ethereum", "ETH", "1.260", 0.058, 2)
-let bnb = new crypto("BNB", "BNB", "274", 0.008, 2)
-let xrp = new crypto("XRP", "XRP", "0,486", 0.024, 1)
-let ada = new crypto("Cardano", "ADA", "0,44", 0.022, 2)
-let sol = new crypto("Solana", "SOL", "32,2", 0.024, 2)
+let btc = new crypto("Bitcoin", "BTC", 18674, 0.018, 2)
+let eth = new crypto("Ethereum", "ETH", 1260.50, 0.058, 2)
+let bnb = new crypto("BNB", "BNB", 274, 0.008, 2)
+let xrp = new crypto("XRP", "XRP", 0.486, 0.024, 1)
+let ada = new crypto("Cardano", "ADA", 0.44, 0.022, 2)
+let sol = new crypto("Solana", "SOL", 32.2, 0.024, 2)
 
 tokens.push(btc);
 tokens.push(eth);
@@ -27,12 +27,15 @@ tokens.push(xrp);
 tokens.push(ada);
 tokens.push(sol);
 
+
 const domMonedas = document.getElementById("monedas");
 const domBoton = document.getElementById("boton");
 domBoton.addEventListener("click", renderizarTokens)
 
+
 // Renderizar las cotizaciones en tarjetas
 function renderizarTokens() {
+    domMonedas.innerHTML = "";
     tokens.forEach(item => {
         // Columna Bootstrap
         const nodoColumna = document.createElement("div");
@@ -49,7 +52,7 @@ function renderizarTokens() {
         nodoCardBody.classList.add("card-body");
         const nodoCardPrice = document.createElement("H1");
         nodoCardPrice.classList.add("card-title", "pricing-card-title");
-        nodoCardPrice.textContent = `$${item.price}`;
+        nodoCardPrice.textContent = `${item.price}`;
         const nodoCardText = document.createElement("ul");
         nodoCardText.classList.add("list-unstyled", "mt-3", "mb-4");
         nodoCardText.innerHTML = `<li>${item.name}</li>`
