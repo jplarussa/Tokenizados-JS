@@ -1,5 +1,16 @@
+// Declaro constantes que toman elementos del DOM
+const domTitulo = document.getElementById("titulo-contacto");
+
 // Creo Array de cryptos
 const tokens = [];
+
+// Chequeo Clientes en sessionStorage
+let clientes = [];
+let clientesStorage = JSON.parse(sessionStorage.getItem("clientes"));
+if (clientesStorage) {
+    clientes = clientesStorage;
+    domTitulo.textContent = `"Hola ${clientes[0].nombre}!"`;
+}
 
 // Creo la clase constructora de Cryptos
 class crypto {

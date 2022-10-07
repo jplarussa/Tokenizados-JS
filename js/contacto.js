@@ -1,4 +1,17 @@
+// Declaro constantes que toman elementos del DOM
+const domTitulo = document.getElementById("titulo-contacto");
+const domSelector = document.getElementById("cryptocliente");
+const domFormulario = document.getElementById("forminscrip");
+
+// Chequeo clientes en sessionStorage
 let clientes = [];
+let clientesStorage = JSON.parse(sessionStorage.getItem("clientes"));
+if (clientesStorage) {
+    clientes = clientesStorage;
+    domTitulo.textContent = `"Hola ${clientes[0].nombre}!"`;
+}
+
+// Chequeo Cryptos en localStorage
 let cryptos = [];
 let cryptosStorage = JSON.parse(localStorage.getItem("cryptos"));
 
@@ -6,11 +19,18 @@ if (cryptosStorage) {
     cryptos = cryptosStorage;
 }
 
-const domUsuario = document.getElementById("forminscrip");
-const domSelector = document.getElementById("cryptocliente");
+class Cliente {
+    constructor(literal) {
+        this.id = clientes.length;
+        this.nombre = literal.nombre;
+        this.apellido = literal.apellido;
+        this.email = literal.email;
+        this.token = literal.token;
+    }
+}
 
 // Renderizar las opciones select de cada crypto 
-function renderizarCryptos() {
+function cargarCryptos() {
     cryptos.forEach(item => {
         let option = document.createElement("option");
         option.setAttribute("value", `"${item.name}"`);
@@ -20,31 +40,33 @@ function renderizarCryptos() {
         domSelector.append(option);
     })
 }
+cargarCryptos();
 
-renderizarCryptos();
 
-let usuario;
-let usuarioStorage = sessionStorage.getItem("usuario");
-if(usuarioStorage){
-    usuario = usuarioStorage;
-    let mensaje = `Bienvenido ${usuario}`;
-    domSelector.textContent(mensaje);
-}
-
-let nombrecliente = document.getElementById("nombrecliente");
-let apellidocliente = document.getElementById("apellidocliente");
-let emailcliente = document.getElementById("emailcliente");
-let cryptocliente = document.getElementById("cryptocliente");
-
-let formulario = document.getElementById("forminscrip-fc");
-
-formulario.addEventListener("submit", (e) => {
+// Capturamos eventos del formulario
+domFormulario.addEventListener("submit", (e) => {
     e.preventDefault();
+    let nombreCliente = document.getElementById("nombrecliente");
+    let apellidoCliente = document.getElementById("apellidocliente");
+    let emailCliente = document.getElementById("emailcliente");
+    let cryptoCliente = document.getElementById("cryptocliente");
 
-    let inputs = e.target.children;
-    console.log(inputs[0].value);
-    console.log(inputs[1].value);
-    if(!inputs[0].value.includes(".gmail")){
-    inputs[0].value = "";
+    crearCliente(nombreCliente.value, apellidoCliente.value, emailCliente.value, cryptoCliente.value);
+});
+
+// Funcion Crear Cliente
+const crearCliente = (nombre, apellido, email, token) => {
+    if (clientes == "") {
+        let nuevoCliente = new Cliente({
+            id: clientes.length + 1,
+            nombre: nombre,
+            apellido: apellido,
+            email: email,
+            token: token
+        });
+        clientes.push(nuevoCliente);
+        sessionStorage.setItem("clientes", JSON.stringify(clientes));
+    } else {
+        alert("Ya cuenta con un usuario");
     }
-})
+};
