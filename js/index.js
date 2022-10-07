@@ -27,6 +27,8 @@ tokens.push(xrp);
 tokens.push(ada);
 tokens.push(sol);
 
+// Cargo en LocalStorage el listado de cryptos
+localStorage.setItem("cryptos", JSON.stringify(tokens));
 
 const domMonedas = document.getElementById("monedas");
 const domBoton = document.getElementById("boton");

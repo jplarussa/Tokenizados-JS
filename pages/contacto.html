@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <!-- Custom styles for this template -->
+    <link href="../css/cover.css" rel="stylesheet">
+    <title>Contacto - Tokenizados</title>
+</head>
+<body class="d-flex text-center text-white bg-dark shadow-none">
+    <div class="cover-container d-flex justify-content-between w-100 p-3 mx-auto flex-column">
+        <header>
+            <div>
+                <h3 class="float-md-start mb-0">Tokenizados</h3>
+                <nav class="nav nav-masthead justify-content-center float-md-end">
+                    <a class="nav-link" aria-current="page" href="../index.html">Home</a>
+                    <a class="nav-link active" href="#">Contacto</a>
+                </nav>
+            </div>
+        </header>
+        <main class="px-3">
+            <!-- Formulario de inscripción -->
+            <section id="formulario">
+                <div class="container-fluid overflow-hidden">
+                    <h1 id="forminscrip" class="mb-5">Registrate!</h1>
+                    <form id="forminscrip-fc" role="Form" method="post" action="" accept-charset="UTF-8">
+                        <div class="mb-3">
+                            <label class="form-label" for="fname">Nombre</label>
+                            <input type="text" id="nombrecliente" class="form-control" name="nombrecliente"
+                                placeholder="Satoshi" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="lname">Apellido</label>
+                            <input type="text" id="apellidocliente" class="form-control" name="apellidocliente"
+                                placeholder="Nakamoto" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="emailaddr">Email</label>
+                            <input type="email" id="emailcliente" class="form-control" name="emailcliente"
+                                placeholder="satoshi.nakamoto@tothemoon.com" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="cryptos">Seleccione su Crypto favorita</label>
+                            <select id="cryptocliente" class="form-select" name="cryptocliente">
+                                <option selected>Despliegue el menu para elegir</option>
+                            </select>
+                        </div>
+                        <div class="mb-3 text-center mt-5">
+                            <button type="submit" class="btn btn-light btn-md" id="inscripcioncliente"
+                                name="submit">Enviar</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </main>
+        <footer class="text-white-50">
+            <p>Web diseñada por <a href="https://github.com/jplarussa" class="text-white">Jean Pierre La Russa</a></p>
+        </footer>
+    </div>
+    <script src="../js/contacto.js"></script>
+</body>
+</html>
