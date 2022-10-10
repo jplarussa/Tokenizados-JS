@@ -3,21 +3,14 @@ const domTitulo = document.getElementById("titulo-contacto");
 const domSelector = document.getElementById("cryptocliente");
 const domFormulario = document.getElementById("forminscrip");
 
-// Chequeo clientes en sessionStorage
-let clientes = [];
-let clientesStorage = JSON.parse(sessionStorage.getItem("clientes"));
-if (clientesStorage) {
-    clientes = clientesStorage;
-    domTitulo.textContent = `"Hola ${clientes[0].nombre}!"`;
-}
+// Chequeo cliente en sessionStorage y muestro bienvenida si existe.
+
+let clientes = JSON.parse(sessionStorage.getItem("clientes")) || [];
+clientes.length === 0 ? true : domTitulo.textContent = `"Hola ${clientes[0].nombre}!"`;
 
 // Chequeo Cryptos en localStorage
-let cryptos = [];
-let cryptosStorage = JSON.parse(localStorage.getItem("cryptos"));
 
-if (cryptosStorage) {
-    cryptos = cryptosStorage;
-}
+let cryptos = JSON.parse(localStorage.getItem("cryptos")) || [];
 
 class Cliente {
     constructor(literal) {

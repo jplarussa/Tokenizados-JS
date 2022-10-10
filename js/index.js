@@ -4,13 +4,11 @@ const domTitulo = document.getElementById("titulo-contacto");
 // Creo Array de cryptos
 const tokens = [];
 
-// Chequeo Clientes en sessionStorage
-let clientes = [];
-let clientesStorage = JSON.parse(sessionStorage.getItem("clientes"));
-if (clientesStorage) {
-    clientes = clientesStorage;
-    domTitulo.textContent = `"Hola ${clientes[0].nombre}!"`;
-}
+// Chequeo cliente en sessionStorage y muestro bienvenida si existe.
+
+let clientes = JSON.parse(sessionStorage.getItem("clientes")) || [];
+clientes.length === 0 ? true : domTitulo.textContent = `"Hola ${clientes[0].nombre}!"`;
+
 
 // Creo la clase constructora de Cryptos
 class crypto {
@@ -43,6 +41,7 @@ localStorage.setItem("cryptos", JSON.stringify(tokens));
 
 const domMonedas = document.getElementById("monedas");
 const domBoton = document.getElementById("boton");
+// Muestro cotizaciones al clickear
 domBoton.addEventListener("click", renderizarTokens)
 
 
@@ -94,58 +93,3 @@ function renderizarTokens() {
         domMonedas.append(nodoColumna);
     })
 }
-
-
-/* COMENTADO PARA REUTILIZAR PARTES
-
-
-// Ingreso del usuario y filtrado
-let input = prompt("Indique la cryptomoneda para conocer su cotización:").toUpperCase();
-let output = tokens.find((item) => item.ticker === input);
-
-if (typeof output !== "undefined") {
-    // Hago mas amigable la información de si subió o bajo la crypto seleccionada
-    if (output.lastDay === 1) {
-        output.lastDay = "Subió";
-    } else if (output.lastDay === 2) {
-        output.lastDay = "Bajo";
-    } else {
-        output.lastDay = "Neutro";
-    };
-    // Muestro el resultado
-    let showToken = `
-        Name: ${output.name}
-        Ticker: ${output.ticker}
-        Price: ${output.price}
-        Change: ${output.change*100}%
-        Last Day: ${output.lastDay}
-    `;
-    alert(showToken);
-} else {
-    showToken = "No existe cotización"
-    alert(showToken);
-}
- */
-
-
-/* // Funcion anterior del botón web, resumen de cotizaciones
-function cotizaciones () {
-    const winners = tokens.filter(crypto => crypto.lastDay === 1);
-    let showWinners = `Cryptos Ganadoras del día: \n`;
-    winners.forEach(item => {
-        showWinners += `${item.ticker} `;
-    });
-    alert(showWinners);
-    console.log(showWinners);
-
-    const losers = tokens.filter(crypto => crypto.lastDay === 2);
-    let showLosers = `Cryptos Perdedoras del día: \n`;
-    losers.forEach(item => {
-        showLosers += `${item.ticker} `;
-    });
-    alert(showLosers);
-    console.log(showLosers);
-    
-    console.log(tokens);
-}
- */
