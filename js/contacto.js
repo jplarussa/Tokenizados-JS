@@ -45,6 +45,8 @@ domFormulario.addEventListener("submit", (e) => {
     let cryptoCliente = document.getElementById("cryptocliente");
 
     crearCliente(nombreCliente.value, apellidoCliente.value, emailCliente.value, cryptoCliente.value);
+
+
 });
 
 // Funcion Crear Cliente
@@ -59,7 +61,21 @@ const crearCliente = (nombre, apellido, email, token) => {
         });
         clientes.push(nuevoCliente);
         sessionStorage.setItem("clientes", JSON.stringify(clientes));
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Gracias por suscribirte',
+            showConfirmButton: true,
+            timer: 2000
+        });
     } else {
-        alert("Ya cuenta con un usuario");
+        console.log("llegue aca---");
+        Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Ya estás registrado',
+            showConfirmButton: true,
+            timer: 2000
+        })
     }
 };

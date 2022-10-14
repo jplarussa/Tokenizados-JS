@@ -3,11 +3,20 @@ const domTitulo = document.getElementById("titulo-contacto");
 
 // Creo Array de cryptos
 const tokens = [];
-
+let registrado;
 // Chequeo cliente en sessionStorage y muestro bienvenida si existe.
 
 let clientes = JSON.parse(sessionStorage.getItem("clientes")) || [];
-clientes.length === 0 ? true : domTitulo.textContent = `"Hola ${clientes[0].nombre}!"`;
+clientes.length === 0 ? true : registrado = true;
+console.log(registrado);
+if (registrado === true) {
+    domTitulo.textContent = `"Hola ${clientes[0].nombre}!"`;
+    toast({
+        text: `Hola de nuevo ${clientes[0].nombre}`,
+        duration: 3000,
+        theme: "dark",
+    });
+};
 
 
 // Creo la clase constructora de Cryptos
