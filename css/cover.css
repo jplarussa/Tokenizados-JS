@@ -26,6 +26,10 @@ body {
   max-width: 42em;
 }
 
+.toastify{
+  box-shadow: none;
+}
+
 /*
  * Header
  */

@@ -3,10 +3,24 @@ const domTitulo = document.getElementById("titulo-contacto");
 const domSelector = document.getElementById("cryptocliente");
 const domFormulario = document.getElementById("forminscrip");
 
-// Chequeo cliente en sessionStorage y muestro bienvenida si existe.
 
+// Chequeo cliente en sessionStorage y muestro bienvenida si existe.
+let registrado;
 let clientes = JSON.parse(sessionStorage.getItem("clientes")) || [];
-clientes.length === 0 ? true : domTitulo.textContent = `"Hola ${clientes[0].nombre}!"`;
+
+clientes.length === 0 ? true : registrado = true;
+if (registrado === true) {
+    Toastify({
+        text: `Hola de nuevo ${clientes[0].nombre}`,
+        duration: 1500,
+        gravity: "top",
+        position: "center",
+        style: {
+            background: "#4a5259", 
+        },
+    }).showToast();
+    domTitulo.textContent = `"Usuario: ${clientes[0].nombre}!"`;
+};
 
 // Chequeo Cryptos en localStorage
 
