@@ -1,3 +1,6 @@
+// API Coingecko con 15 cryptos de mayor MarketCap
+apigecko = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=false"
+
 // Declaro constantes que toman elementos del DOM
 const domTitulo = document.getElementById("titulo-contacto");
 
@@ -26,14 +29,28 @@ if (registrado === true) {
 
 // Creo la clase constructora de Cryptos
 class crypto {
-    constructor(name, ticker, price, change, lastDay) {
+    constructor(name, symbol, currentPrice, priceChange24h, lastDay) {
         this.name = name;
-        this.ticker = ticker;
-        this.price = price;
-        this.change = change;
+        this.symbol = symbol;
+        this.currentPrice = currentPrice;
+        this.priceChange24h = priceChange24h;
         this.lastDay = lastDay;
     }
 }
+
+const getTokens = async (url) => {    
+    try {
+        let allTokens = [];
+        let response = await fetch(url);
+        data = await response.json();
+        allTokens.push(...data);
+        return allTokens;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+
 
 // Creo instancias y las meto al array
 let btc = new crypto("Bitcoin", "BTC", 18674, 0.018, 2)
@@ -57,6 +74,8 @@ const domMonedas = document.getElementById("monedas");
 const domBoton = document.getElementById("boton");
 // Muestro cotizaciones al clickear
 domBoton.addEventListener("click", renderizarTokens)
+let coco = getTokens(apigecko);
+console.log(coco);
 
 
 // Renderizar las cotizaciones en tarjetas
@@ -73,12 +92,12 @@ function renderizarTokens() {
         nodoCardTitle.classList.add("card-header", "py-3");
         const nodoTokenTitle = document.createElement("h4");
         nodoTokenTitle.classList.add("my-0", "fw-normal");
-        nodoTokenTitle.textContent = item.ticker;
+        nodoTokenTitle.textContent = item.symbol;
         const nodoCardBody = document.createElement("div");
         nodoCardBody.classList.add("card-body");
         const nodoCardPrice = document.createElement("H1");
         nodoCardPrice.classList.add("card-title", "pricing-card-title");
-        nodoCardPrice.textContent = `${item.price}`;
+        nodoCardPrice.textContent = `${item.currentPrice}`;
         const nodoCardText = document.createElement("ul");
         nodoCardText.classList.add("list-unstyled", "mt-3", "mb-4");
         nodoCardText.innerHTML = `<li>${item.name}</li>`
