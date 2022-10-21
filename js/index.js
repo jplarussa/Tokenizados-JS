@@ -82,7 +82,7 @@ function renderizarTokens() {
         nodoCardBody.classList.add("card-body");
         const nodoCardPrice = document.createElement("H1");
         nodoCardPrice.classList.add("card-title", "pricing-card-title");
-        nodoCardPrice.textContent = `${item.current_price}`;
+        nodoCardPrice.textContent = `$${Math.round(item.current_price * 100)/100}`;
         const nodoCardText = document.createElement("ul");
         nodoCardText.classList.add("list-unstyled", "mt-3", "mb-4");
         nodoCardText.innerHTML = `
