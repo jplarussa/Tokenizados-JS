@@ -23,7 +23,7 @@ if (registrado === true) {
             background: "#4a5259", 
         },
     }).showToast();
-    domTitulo.textContent = `"Usuario: ${clientes[0].nombre}!"`;
+    domTitulo.textContent = `Usuario: ${clientes[0].nombre}`;
 };
 
 
@@ -53,51 +53,47 @@ const getTokens = async (url) => {
 getTokens(apigecko);
 
 
-
+// Cargo elementos HTML del boton y div que mostraran las cotizaciones
 const domMonedas = document.getElementById("monedas");
 const domBoton = document.getElementById("boton");
-// Muestro cotizaciones al clickear
 domBoton.addEventListener("click", renderizarTokens)
-
-
-
 
 
 // Renderizar las cotizaciones en tarjetas
 function renderizarTokens() {
     domMonedas.innerHTML = "";
-    tokens.forEach(item => {
+    tokens.forEach(token => {
         // Columna Bootstrap
         const nodoColumna = document.createElement("div");
         nodoColumna.classList.add("col");
-        // Tarjeta
+        // Tarjeta y sus clases bootstrap
         const nodoCard = document.createElement("div");
         nodoCard.classList.add("card", "bg-secondary", "mb-4", "rounded-3", "shadow-sm", "bg-light");
         const nodoCardTitle = document.createElement("div");
         nodoCardTitle.classList.add("card-header", "py-3");
         const nodoTokenTitle = document.createElement("h4");
         nodoTokenTitle.classList.add("my-0", "fw-normal");
-        nodoTokenTitle.textContent = item.symbol.toUpperCase();
+        nodoTokenTitle.textContent = token.symbol.toUpperCase();
         const nodoCardBody = document.createElement("div");
         nodoCardBody.classList.add("card-body");
         const nodoCardPrice = document.createElement("H1");
         nodoCardPrice.classList.add("card-title", "pricing-card-title");
-        nodoCardPrice.textContent = `$${Math.round(item.current_price * 100)/100}`;
+        nodoCardPrice.textContent = `$${Math.round(token.current_price * 100)/100}`;
         const nodoCardText = document.createElement("ul");
         nodoCardText.classList.add("list-unstyled", "mt-3", "mb-4");
         nodoCardText.innerHTML = `
-        <li>${item.name}</li>
-        <li>${Math.round(item.price_change_percentage_24h * 100)/100}%</li>
+        <li>${token.name}</li>
+        <li>${Math.round(token.price_change_percentage_24h * 100)/100}%</li>
         `
-        // Cambio el color segun variacion de la cotizacion
+        // Cambio el color de la tarjeta segun variacion de la cotizacion de las ultimas 24 hs - Verde / Rojo / Gris 
         switch (true) {
-            case item.price_change_percentage_24h > 0:
+            case token.price_change_percentage_24h > 0:
                 nodoCard.classList.add("border-success");
                 nodoCardTitle.classList.add("bg-success", "border-success");
                 nodoCardPrice.classList.add("text-success");
                 nodoCardText.classList.add("text-success");
                 break;
-            case item.price_change_percentage_24h < 0:
+            case token.price_change_percentage_24h < 0:
                 nodoCard.classList.add("border-danger");
                 nodoCardTitle.classList.add("bg-danger", "border-danger");
                 nodoCardPrice.classList.add("text-danger");
@@ -110,7 +106,7 @@ function renderizarTokens() {
                 nodoCardText.classList.add("text-secondary");
                 break;
         }
-        // Lo insertamos
+        // Lo insertamos al HTML
         nodoCardTitle.append(nodoTokenTitle);
         nodoCardBody.append(nodoCardPrice, nodoCardText)
         nodoCard.append(nodoCardTitle, nodoCardBody);

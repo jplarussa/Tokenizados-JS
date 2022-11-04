@@ -19,7 +19,7 @@ if (registrado === true) {
             background: "#4a5259", 
         },
     }).showToast();
-    domTitulo.textContent = `"Usuario: ${clientes[0].nombre}!"`;
+    domTitulo.textContent = `Usuario: ${clientes[0].nombre}`;
 };
 
 // Chequeo Cryptos en localStorage
