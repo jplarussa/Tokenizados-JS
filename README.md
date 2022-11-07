@@ -2,12 +2,12 @@
 
 <p>Proyecto Final del Curso JavaScript de CoderHouse, realizados por Jean Pierre La Russa</p>
 
-## Panel de Cotizaciones de Cryptomonedas
+## Panel de Cotizaciones de Criptomonedas
 
-Desarrollo de sitio web en el que podemos acceder a la API de Coingecko para visualizar las cotizaciones actualizada de cryptomonedas.
-**Tecnologías utilizadas: HTML, CSS, JAVASCRIPT.**
+Desarrollo de sitio web en el que podemos acceder a la API de Coingecko para visualizar las cotizaciones actualizadas de criptomonedas.
+**STACK TECNOLOGICO: | HTML5  | JAVASCRIPT | CSS3  | BOOTSTRAP 5.0 |**
 
-<p>Se utilizan funciones asincronas para acceder la API
-Se renderizan tarjetas Bootstrap por DOM, con css adaptado a las variaciones diarias de precios.
+<p>Se utilizan funciones asíncronas para acceder la API externa.
+Se renderizan tarjetas Bootstrap por DOM, con CSS personalizado a las variaciones diarias de precios.
 Buscador dinámico para filtrar los tokens.
-Manejo de sessiones de usuario con formulario de registro utilizando Session Storage.</p>
+Manejo de sesiones de usuario mediante formulario de registro y utilizando Session Storage.</p>
