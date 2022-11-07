@@ -1,7 +1,7 @@
-#<h1>TokenizadosJS</h1>
+# <h1 align="center">TokenizadosJS</h1>
 
 <p>Proyecto Final del Curso JavaScript de CoderHouse, realizados por Jean Pierre La Russa</p>
-###<p>Panel de Cotizaciones de Cryptomonedas</p>
+## Panel de Cotizaciones de Cryptomonedas
 
 Desarrollo de un sitio web en el que podemos acceder mediante las funciones asincronas de JavaScript a una API de Coingecko que nos permite tener las cotizaciones actualizada de cryptomonedas. Tecnologías utilizadas: HTML, CSS, JAVASCRIPT.
 
