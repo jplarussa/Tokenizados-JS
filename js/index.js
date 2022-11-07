@@ -1,17 +1,19 @@
 // API Coingecko con 15 cryptos de mayor MarketCap
-apigecko = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false"
+const apigecko = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false"
 
 // Declaro constantes que toman elementos del DOM
 const domTitulo = document.getElementById("titulo-contacto");
+const domMonedas = document.getElementById("monedas");
+const domBuscador = document.getElementById("search");
+const domBoton = document.getElementById("boton");
 
-// Creo Array de cryptos
+// Creo Array de cryptos y variables que interactuan con session del usuario
 let tokens = [];
 let registrado;
+let tokenDeUsuario;
 
 // Chequeo cliente en sessionStorage y muestro bienvenida si existe.
-
 let clientes = JSON.parse(sessionStorage.getItem("clientes")) || [];
-
 clientes.length === 0 ? true : registrado = true;
 if (registrado === true) {
     Toastify({
@@ -24,24 +26,14 @@ if (registrado === true) {
         },
     }).showToast();
     domTitulo.textContent = `Usuario: ${clientes[0].nombre}`;
+    tokenDeUsuario = clientes[0].token;
 };
 
-
-// Creo la clase constructora de Cryptos
-class crypto {
-    constructor(name, symbol, currentPrice, priceChange24h, lastDay) {
-        this.name = name;
-        this.symbol = symbol;
-        this.currentPrice = currentPrice;
-        this.priceChange24h = priceChange24h;
-        this.lastDay = lastDay;
-    }
-}
-
+// Función asincrona que levanta datos de la url proporcionada (API) y los graba en la variable tokens
 const getTokens = async (url) => {    
     try {
-        let response = await axios(url);
-        let data = await response.data;
+        let response = await fetch(url);
+        let data = await response.json();
         tokens = data;
         localStorage.setItem("cryptos", JSON.stringify(tokens));
     } catch (error) {
@@ -49,26 +41,33 @@ const getTokens = async (url) => {
     }
 };
 
-//Llamo a la función para traer datos de Coingecko
+//Llamo a la función con un Interval, para actualizar los datos de Coingecko cada 10 seg.
 getTokens(apigecko);
+setInterval( () => {
+    getTokens(apigecko);
+    if (domMonedas.innerHTML != "") {
+        renderizarTokens(tokens);
+    }
+}, 10000);  
+
+// Renderizo con el botón del HTML 
+domBoton.addEventListener("click", () => {
+    renderizarTokens(tokens);
+});
 
 
-// Cargo elementos HTML del boton y div que mostraran las cotizaciones
-const domMonedas = document.getElementById("monedas");
-const domBoton = document.getElementById("boton");
-domBoton.addEventListener("click", renderizarTokens)
-
-
-// Renderizar las cotizaciones en tarjetas
-function renderizarTokens() {
+// Funcion para renderizar las cotizaciones como tarjetas
+function renderizarTokens (monedas) {
     domMonedas.innerHTML = "";
-    tokens.forEach(token => {
+    
+    // Renderizado de tarjeta
+    monedas.forEach(token => {
         // Columna Bootstrap
         const nodoColumna = document.createElement("div");
-        nodoColumna.classList.add("col");
+        nodoColumna.classList.add("col", "mb-4");
         // Tarjeta y sus clases bootstrap
         const nodoCard = document.createElement("div");
-        nodoCard.classList.add("card", "bg-secondary", "mb-4", "rounded-3", "shadow-sm", "bg-light");
+        nodoCard.classList.add("card", "bg-secondary", "rounded-3", "shadow-sm", "bg-light", "h-100");
         const nodoCardTitle = document.createElement("div");
         nodoCardTitle.classList.add("card-header", "py-3");
         const nodoTokenTitle = document.createElement("h4");
@@ -80,37 +79,56 @@ function renderizarTokens() {
         nodoCardPrice.classList.add("card-title", "pricing-card-title");
         nodoCardPrice.textContent = `$${Math.round(token.current_price * 100)/100}`;
         const nodoCardText = document.createElement("ul");
-        nodoCardText.classList.add("list-unstyled", "mt-3", "mb-4");
+        nodoCardText.classList.add("list-unstyled", "mt-3", "mb-2");
         nodoCardText.innerHTML = `
         <li>${token.name}</li>
         <li>${Math.round(token.price_change_percentage_24h * 100)/100}%</li>
+        <img class="w-50 mt-3 img-fluid card-img-bottom" src="${token.image}">
         `
+        
         // Cambio el color de la tarjeta segun variacion de la cotizacion de las ultimas 24 hs - Verde / Rojo / Gris 
         switch (true) {
-            case token.price_change_percentage_24h > 0:
-                nodoCard.classList.add("border-success");
-                nodoCardTitle.classList.add("bg-success", "border-success");
-                nodoCardPrice.classList.add("text-success");
-                nodoCardText.classList.add("text-success");
-                break;
-            case token.price_change_percentage_24h < 0:
+            // Si el token es el favorito del usuario, lo resaltamos de celeste
+            case token.name == tokenDeUsuario:
+                nodoCard.classList.add("border-info", "border", "border-5");
+                case token.price_change_percentage_24h > 0:
+                    nodoCard.classList.add("border-success");
+                    nodoCardTitle.classList.add("bg-success", "border-success");
+                    nodoCardPrice.classList.add("text-success");
+                    nodoCardText.classList.add("text-success");
+                    break;
+                    case token.price_change_percentage_24h < 0:
                 nodoCard.classList.add("border-danger");
                 nodoCardTitle.classList.add("bg-danger", "border-danger");
                 nodoCardPrice.classList.add("text-danger");
                 nodoCardText.classList.add("text-danger");
                 break;
-            default:
+                default:
                 nodoCard.classList.add("border-secondary");
                 nodoCardTitle.classList.add("bg-secondary", "border-secondary");
                 nodoCardPrice.classList.add("text-secondary");
                 nodoCardText.classList.add("text-secondary");
                 break;
-        }
-        // Lo insertamos al HTML
-        nodoCardTitle.append(nodoTokenTitle);
-        nodoCardBody.append(nodoCardPrice, nodoCardText)
-        nodoCard.append(nodoCardTitle, nodoCardBody);
-        nodoColumna.append(nodoCard);
-        domMonedas.append(nodoColumna);
-    })
+            }
+            // Lo insertamos al HTML
+            nodoCardTitle.append(nodoTokenTitle);
+            nodoCardBody.append(nodoCardPrice, nodoCardText)
+            nodoCard.append(nodoCardTitle, nodoCardBody);
+            nodoColumna.append(nodoCard);
+            domMonedas.append(nodoColumna);
+        })   
+    }
+
+// Buscador de tokens por simbolo o nombre
+function buscarTokens (monedas) {
+    domBuscador.addEventListener("keyup", (e) => {
+        let tokensFiltrados = tokens.filter((token) => {
+            return token.symbol.toUpperCase().match(e.target.value.toUpperCase()) || token.name.toUpperCase().match(e.target.value.toUpperCase());
+        });
+        domMonedas.innerHTML = "";  
+
+        renderizarTokens(tokensFiltrados);
+    });
 }
+// Inicializo el buscador
+buscarTokens();

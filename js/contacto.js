@@ -40,7 +40,7 @@ class Cliente {
 function cargarCryptos() {
     cryptos.forEach(item => {
         let option = document.createElement("option");
-        option.setAttribute("value", `"${item.name}"`);
+        option.setAttribute("value", item.name);
         option.innerHTML = `${item.name}`;
 
         // Lo insertamos
@@ -83,7 +83,6 @@ const crearCliente = (nombre, apellido, email, token) => {
             timer: 2000
         });
     } else {
-        console.log("llegue aca---");
         Swal.fire({
             position: 'center',
             icon: 'error',

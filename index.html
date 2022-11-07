@@ -22,22 +22,28 @@
                 <span id="titulo-contacto"></span>
                 <nav class="nav nav-masthead justify-content-center float-md-end">
                     <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    <a class="nav-link" href="./pages/contacto.html">Newsletter</a>
+                    <a class="nav-link" href="./pages/contacto.html">Registrarse</a>
                 </nav>
             </div>
         </header>
         <main class="px-3">
             <section class="my-5">
                 <h1>El futuro está en la blockchain</h1>
-                <p class="lead">Consulta las últimas cotizaciones de las cryptos más importantes. Simula un portfolio
+                <p class="lead">Consulta las últimas cotizaciones de las cryptos más importantes. Preparate
                     para
                     esperar el próximo Bull Market</p>
                 <p class="lead">
                     <a href='javascript:;' id="boton" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Ver cotizaciones!</a>
                 </p>
             </section>
-            <!-- Cuadro de cotizaciones a renderizar por JS -->
-            <section class="row row-cols-1 row-cols-md-3 mb-3 text-center" id="monedas">
+            <section>
+                <!-- Buscador de cryptomonedas -->
+                <div class="busqueda mb-4">
+                    <label class="form-label" for="search">Buscar monedas</label>
+                    <input class="form-control col-md-2 col-lg-3 mb-3" type="search" id="search" placeholder="Escribe aquí para buscar"></input>
+                </div>
+                <!-- Cuadro de cotizaciones a renderizar por JS -->
+                <div class="row row-cols-1 row-cols-md-3 row-cols-xl-4 mb-3 text-center" id="monedas"></div>
             </section>
         </main>
         <footer class="text-white-50">
@@ -46,7 +52,6 @@
     </div>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="./js/index.js"></script>
 </body>
 

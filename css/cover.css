@@ -3,17 +3,17 @@
  */
 
 
-/* Custom default button */
+/* Botones personalizados por defeceto */
 .btn-secondary,
 .btn-secondary:hover,
 .btn-secondary:focus {
   color: #333;
-  text-shadow: none; /* Prevent inheritance from `body` */
+  text-shadow: none;
 }
 
 
 /*
- * Base structure
+ * Estructura base
  */
 
 body {
@@ -23,9 +23,17 @@ body {
 }
 
 .cover-container {
-  max-width: 48em;
+  max-width: 75%;
+}
+.busqueda {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
+/* Ajustes de carteles de notificación */
 .toastify{
   box-shadow: none;
 }
