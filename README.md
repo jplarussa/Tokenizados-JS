@@ -11,3 +11,6 @@ Desarrollo de sitio web en el que podemos acceder a la API de Coingecko para vis
 Se renderizan tarjetas Bootstrap por DOM, con CSS personalizado a las variaciones diarias de precios.
 Buscador dinámico para filtrar los tokens.
 Manejo de sesiones de usuario mediante formulario de registro y utilizando Session Storage.</p>
+
+<h2>Deploy:</h2>
+https://jplarussa.github.io/Tokenizados-JS/
